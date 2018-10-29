@@ -1,6 +1,5 @@
 <Directives>
   <Application>
-    <Assembly Name="EFCore.PG-653" Dynamic="Required All" />
     <Assembly Name="Microsoft.AspNetCore.Server.Kestrel.Core">
       <Type Name="Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServer" Dynamic="Required All" />
       <Type Name="Microsoft.AspNetCore.Server.Kestrel.Core.Internal.KestrelServerOptionsSetup" Dynamic="Required All" />
@@ -85,23 +84,81 @@
     <Assembly Name="Microsoft.Extensions.Configuration.Json">
       <Type Name="Microsoft.Extensions.Configuration.Json.JsonConfigurationSource" Dynamic="Required All" />
     </Assembly>
-    <Assembly Name="Microsoft.EntityFrameworkCore.Relational">
-      <Type Name="Microsoft.EntityFrameworkCore.Query.RelationalQueryContextFactory" Dynamic="Required All" />
-      <Type Name="Microsoft.EntityFrameworkCore.Storage.RelationalExecutionStrategyFactory" Dynamic="Required All" />
+
+    <!-- EF Core memory cache -->
+    <Assembly Name="Microsoft.Extensions.Caching.Memory">
+      <Type Name="Microsoft.Extensions.Caching.Memory.MemoryCache" Dynamic="Required All" />
+      <Type Name="Microsoft.Extensions.Caching.Memory.MemoryCacheOptions" Dynamic="Required All" />
     </Assembly>
+
+    <!-- EF Core (general includes) -->
     <Assembly Name="Microsoft.EntityFrameworkCore">
-      <Type Name="Microsoft.EntityFrameworkCore.Query.QueryContextDependencies" Dynamic="Required All" />
-      <Type Name="Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler" Dynamic="Required All" />
       <Type Name="Microsoft.EntityFrameworkCore.ChangeTracking.Internal.EntityGraphAttacher" Dynamic="Required All" />
-      <Type Name="Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider" Dynamic="Required All" />
       <Type Name="Microsoft.EntityFrameworkCore.ChangeTracking.Internal.ChangeDetector" Dynamic="Required All" />
       <Type Name="Microsoft.EntityFrameworkCore.Internal.DbContextDependencies" Dynamic="Required All" />
       <Type Name="Microsoft.EntityFrameworkCore.Internal.DiagnosticsLogger`1[[Microsoft.EntityFrameworkCore.DbLoggerCategory+Infrastructure,Microsoft.EntityFrameworkCore]]" Dynamic="Required All" />
       <Type Name="Microsoft.EntityFrameworkCore.Internal.DbSetInitializer" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Internal.DbSetSource" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Internal.EntityFinderSource" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Query.CompiledQueryCacheKeyGeneratorDependencies" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Query.Internal.QueryCompilationContextDependencies" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Query.QueryContextDependencies" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Storage.Database" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Storage.DatabaseDependencies" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Storage.ExecutionStrategyDependencies" Dynamic="Required All" />
+    </Assembly>
+
+    <!-- EF Core relational -->
+    <Assembly Name="Microsoft.EntityFrameworkCore.Relational">
+      <Type Name="Microsoft.EntityFrameworkCore.Query.RelationalCompiledQueryCacheKeyGeneratorDependencies" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Query.RelationalQueryCompilationContextDependencies" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Query.RelationalQueryCompilationContextFactory" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Query.RelationalQueryContextFactory" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Query.RelationalQueryModelVisitorDependencies" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Query.RelationalQueryModelVisitorFactory" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Storage.RelationalDatabase" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Storage.RelationalDatabaseDependencies" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Storage.RelationalExecutionStrategyFactory" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Update.UpdateSqlGeneratorDependencies" Dynamic="Required All" />
+    </Assembly>
+
+    <!-- EF Core (project/provider includes) -->
+    <Assembly Name="Microsoft.EntityFrameworkCore">
+      <Type Name="Microsoft.EntityFrameworkCore.DbSet`1[[EFCore_PG_653.SomeClass,EFCore.PG-653]]" Dynamic="Required All" />
+      <Type Name="Microsoft.EntityFrameworkCore.Internal.DbSetSource">
+        <Method Name="CreateSetFactory" Dynamic="Required">
+          <GenericArgument Name="EFCore_PG_653.SomeClass,EFCore.PG-653" />
+        </Method>
+      </Type>
+      <Type Name="Microsoft.EntityFrameworkCore.Metadata.Internal.ClrAccessorFactory`1[[Microsoft.EntityFrameworkCore.Metadata.Internal.IClrPropertySetter,Microsoft.EntityFrameworkCore]]">
+        <Method Name="CreateGeneric" Dynamic="Required">
+          <GenericArgument Name="EFCore_PG_653.SomeDbContext,EFCore.PG-653" />
+          <GenericArgument Name="Microsoft.EntityFrameworkCore.DbSet`1[[EFCore_PG_653.SomeClass,EFCore.PG-653]], Microsoft.EntityFrameworkCore" />
+          <GenericArgument Name="Microsoft.EntityFrameworkCore.DbSet`1[[EFCore_PG_653.SomeClass,EFCore.PG-653]], Microsoft.EntityFrameworkCore" />
+        </Method>
+      </Type>
+      <Type Name="Microsoft.EntityFrameworkCore.Metadata.Internal.ClrAccessorFactory`1[[Microsoft.EntityFrameworkCore.Metadata.Internal.IClrPropertyGetter,Microsoft.EntityFrameworkCore]]">
+        <Method Name="CreateGeneric" Dynamic="Required">
+          <GenericArgument Name="EFCore_PG_653.SomeClass,EFCore.PG-653" />
+          <GenericArgument Name="System.Int32,System.Runtime" />
+          <GenericArgument Name="System.Int32,System.Runtime" />
+        </Method>
+      </Type>
       <Type Name="Microsoft.EntityFrameworkCore.Storage.DatabaseProvider`1[[Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure.Internal.NpgsqlOptionsExtension,Npgsql.EntityFrameworkCore.PostgreSQL]]" Dynamic="Required All" />
     </Assembly>
+
+    <!-- Npgsql-specific includes -->
     <Assembly Name="Npgsql.EntityFrameworkCore.PostgreSQL">
+      <Type Name="Npgsql.EntityFrameworkCore.PostgreSQL.Query.Internal.NpgsqlCompiledQueryCacheKeyGenerator" Dynamic="Required All"/>
+      <Type Name="Npgsql.EntityFrameworkCore.PostgreSQL.Query.Internal.NpgsqlQueryCompilationContextFactory" Dynamic="Required All"/>
       <Type Name="Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategyFactory" Dynamic="Required All"/>
     </Assembly>
+
+    <!-- app-specific includes -->
+    <Assembly Name="EFCore.PG-653" Dynamic="Required All" />
   </Application>
 </Directives>

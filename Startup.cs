@@ -18,10 +18,14 @@ namespace EFCore_PG_653
             services.Add(new ServiceDescriptor(typeof(ApplicationPartManager), appPartManager));
 
             return
-                services.AddDbContext<SomeDbContext>(x => x.UseMemoryCache(null).UseNpgsql("")).AddMvcCore()
-                        .AddJsonFormatters()
-                        .Services
-                        .BuildServiceProvider();
+                services
+                    .AddEntityFrameworkNpgsql()
+                    .AddDbContext<SomeDbContext>(
+                        x => x.UseNpgsql("Host=localhost;Port=5432;"))
+                    .AddMvcCore()
+                    .AddJsonFormatters()
+                    .Services
+                    .BuildServiceProvider();
         }
 
         public void Configure(IApplicationBuilder app)
@@ -30,7 +34,8 @@ namespace EFCore_PG_653
             {
                 using (var context = serviceScope.ServiceProvider.GetService<SomeDbContext>())
                 {
-                    context.Database.Migrate();
+                    Console.WriteLine(context.Database.ProviderName);
+//                    context.Database.Migrate();
                 }
             }
 
